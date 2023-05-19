@@ -5,6 +5,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
+
+
     <main
       className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
     >
@@ -115,4 +117,40 @@ export default function Home() {
       </div>
     </main>
   )
+}
+
+
+export async function getServerSideProps() {
+  const { nodes, edges } = await fetch('http://localhost:3000/nodes/urn:lex:br:federal:constituicao:1988-10-05;1988!art1').then((response) => response.json())
+  //console.log(data)
+  // const todos = await fetch(
+  //   "https://jsonplaceholder.typicode.com/todos"
+  // ).then((response) => response.json());
+  // elements: [
+  //     { data: { id: 'a' } },
+  //     { data: { id: 'b' } },
+  //     {
+  //         data: {
+  //             id: 'ab',
+  //             source: 'a',
+  //             target: 'b'
+  //         }
+  //     }]
+
+  // const edges = [
+  //   {
+  //     data: {
+  //       id: 'ab',
+  //       source: 'a',
+  //       target: 'b'
+  //     }
+  //   }
+  // ];
+  // const nodes = [
+  //   { data: { id: 'a' } },
+  //   { data: { id: 'b' } }
+  // ];
+  return {
+    props: { edges, nodes }
+  };
 }
